@@ -68,9 +68,6 @@ create database casaoliveiradb;
 use casaoliveiradb;
 
 DROP TABLE IF EXISTS `contato`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `contato` (
   `idcontato` int(11) NOT NULL AUTO_INCREMENT,
   `telefoneresidencial` varchar(15) DEFAULT NULL,
   `telefonecomercial` varchar(15) DEFAULT NULL,
@@ -79,12 +76,8 @@ CREATE TABLE `contato` (
   `redesocial` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idcontato`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 
 DROP TABLE IF EXISTS `endereco`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `endereco` (
   `idendereco` int(11) NOT NULL AUTO_INCREMENT,
   `tipologradouro` enum('Rua','Avenida','Praça','Alameda','Vila','Estrada','Travessa') NOT NULL,
@@ -98,24 +91,9 @@ CREATE TABLE `endereco` (
   `pais` varchar(20) NOT NULL DEFAULT 'Brasil',
   PRIMARY KEY (`idendereco`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
 DROP TABLE IF EXISTS `cliente`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cliente` (
   `idcliente` int(11) NOT NULL AUTO_INCREMENT,
   `nomecliente` varchar(50) NOT NULL,
@@ -132,12 +110,9 @@ CREATE TABLE `cliente` (
   CONSTRAINT `fk_cliente_pk_contato` FOREIGN KEY (`idcontato`) REFERENCES `contato` (`idcontato`),
   CONSTRAINT `fk_cliente_pk_endereco` FOREIGN KEY (`idendereco`) REFERENCES `endereco` (`idendereco`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 DROP TABLE IF EXISTS `funcionario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `funcionario` (
   `idfuncionario` int(11) NOT NULL AUTO_INCREMENT,
   `nomefuncionario` varchar(50) NOT NULL,
@@ -155,12 +130,8 @@ CREATE TABLE `funcionario` (
   CONSTRAINT `fK_funcionario_pk_endereco` FOREIGN KEY (`idendereco`) REFERENCES `endereco` (`idendereco`),
   CONSTRAINT `fk_funcionario_pk_contato` FOREIGN KEY (`idcontato`) REFERENCES `contato` (`idcontato`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 
 DROP TABLE IF EXISTS `lote`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `lote` (
   `idlote` int(11) NOT NULL AUTO_INCREMENT,
   `numero_lote` varchar(15) DEFAULT NULL,
@@ -172,7 +143,6 @@ CREATE TABLE `lote` (
   PRIMARY KEY (`idlote`),
   UNIQUE KEY `numero_lote` (`numero_lote`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 DROP TABLE IF EXISTS `produto`;
@@ -189,12 +159,8 @@ CREATE TABLE `produto` (
   KEY `fk_produto_pk_lote` (`idlote`),
   CONSTRAINT `fk_produto_pk_lote` FOREIGN KEY (`idlote`) REFERENCES `lote` (`idlote`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 
 DROP TABLE IF EXISTS `estoque`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `estoque` (
   `idestoque` int(11) NOT NULL AUTO_INCREMENT,
   `idproduto` int(11) DEFAULT NULL,
@@ -207,12 +173,8 @@ CREATE TABLE `estoque` (
   KEY `fk_estoque_pk_produto` (`idproduto`),
   CONSTRAINT `fk_estoque_pk_produto` FOREIGN KEY (`idproduto`) REFERENCES `produto` (`idproduto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 
 DROP TABLE IF EXISTS `venda`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `venda` (
   `idvenda` int(11) NOT NULL AUTO_INCREMENT,
   `idcliente` int(11) DEFAULT NULL,
@@ -222,15 +184,12 @@ CREATE TABLE `venda` (
   KEY `fk_venda_pk_cliente` (`idcliente`),
   CONSTRAINT `fk_venda_pk_cliente` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`idcliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `pagamento`
 --
 
 DROP TABLE IF EXISTS `pagamento`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pagamento` (
   `idpagamento` int(11) NOT NULL AUTO_INCREMENT,
   `idvenda` int(11) DEFAULT NULL,
@@ -241,12 +200,8 @@ CREATE TABLE `pagamento` (
   KEY `fk_pagamento_pk_venda` (`idvenda`),
   CONSTRAINT `fk_pagamento_pk_venda` FOREIGN KEY (`idvenda`) REFERENCES `venda` (`idvenda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 
 DROP TABLE IF EXISTS `detalhevenda`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalhevenda` (
   `iddetalhevenda` int(11) NOT NULL AUTO_INCREMENT,
   `idvenda` int(11) DEFAULT NULL,
@@ -258,8 +213,6 @@ CREATE TABLE `detalhevenda` (
   KEY `fk_detalhevenda_pk_pruduto` (`idproduto`),
   CONSTRAINT `fk_detalhevenda_pk_pruduto` FOREIGN KEY (`idproduto`) REFERENCES `produto` (`idproduto`),
   CONSTRAINT `fk_detalhevenda_pk_venda` FOREIGN KEY (`idvenda`) REFERENCES `venda` (`idvenda`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 ```
 
 
